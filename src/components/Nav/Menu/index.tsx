@@ -39,7 +39,12 @@ const Menu = ({ ...props }: NavMenuProps) => {
         dir={direction}
         orientation="horizontal"
         onValueChange={handleSectionChange}
-        delayDuration={0}
+        // A zero delay opens a panel on every pointerenter, so a continuous
+        // sweep from the browser chrome into the page triggers several menus.
+        // A 250ms dwell requires intent; skipDelayDuration keeps quick
+        // switching between adjacent sections snappy.
+        delayDuration={250}
+        skipDelayDuration={400}
       >
         <List id={MAIN_NAV_ID} className="m-0 flex list-none">
           {SECTION_LABELS.map((sectionKey) => {
